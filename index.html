@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odtwarzacz Muzyki</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Odtwarzacz Muzyki</h2>
+    <audio id="audio-player" src="assets/music/After Dark.mp3"></audio>
+    
+    <div>
+        <button id="prev" title="Poprzednia">
+            <img src="assets/icons/previous.png" alt="Przycisk poprzedniej piosenki" width="30">
+        </button>
+        <button id="play" title="Odtwórz">
+            <img src="assets/icons/play.png" alt="Przycisk odtwarzania" width="30">
+        </button>
+        <button id="pause" title="Pauza">
+            <img src="assets/icons/pause.png" alt="Przycisk pauzy" width="30">
+        </button>
+        <button id="next" title="Następna">
+            <img src="assets/icons/next.png" alt="Przycisk następnej piosenki" width="30">
+        </button>
+        <button id="shuffle" title="Losowe odtwarzanie">
+            <img src="assets/icons/shuffle.png" alt="Przycisk odtwarzania losowego" width="30">
+        </button>
+        <button id="repeat" title="Powtarzanie utworu">
+            <img src="assets/icons/replay.png" alt="Przycisk powtarzania utworu" width="30">
+        </button>
+    </div>
+    
+    <!-- Wyświetlanie tytułu utworu -->
+    <h3 id="song-title">Ładowanie...</h3>
+
+    <!-- Pasek postępu odtwarzania -->
+    <label for="progress-bar">Postęp utworu:</label>
+    <input type="range" id="progress-bar" value="0" min="0" step="1" aria-label="Postęp odtwarzania">
+    <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+
+    <!-- Pasek głośności -->
+    <label for="volume-bar">Głośność:</label>
+    <input type="range" id="volume-bar" value="100" min="0" max="100" step="1" aria-label="Regulacja głośności">
+    <span id="volume-level">100%</span>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

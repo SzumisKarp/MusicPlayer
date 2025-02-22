@@ -1,0 +1,70 @@
+/* Stylizacja ciała strony */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #222;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Stylizacja tytułu utworu */
+h3 {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+/* Stylizacja przycisków */
+button {
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+button img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Stylizacja paska postępu */
+#progress-bar, #volume-bar {
+    width: 80%;
+    margin-top: 10px;
+}
+
+/* Stylizacja wyświetlania czasu i głośności */
+#current-time, #duration, #volume-level {
+    font-weight: bold;
+    margin: 5px;
+}
+/* Efekt przyciemniania ekranu */
+.dark-mode {
+    background-color: #222;
+    color: white;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Animacja pulsującego tła */
+@keyframes pulse {
+    0% { background-color: #222; }
+    50% { background-color: #333; }
+    100% { background-color: #222; }
+}
+
+.pulsing {
+    animation: pulse 2s infinite;
+}
+
+.active { filter: invert(50%); }
+
+/* Gdy przycisk jest w stanie aktywnym (np. Play włączony, Shuffle włączone, itp.) */
+.active img {
+  filter: invert(50%);
+}
+
+/* Krótkie mignięcie po kliknięciu */
+.inverted img {
+  filter: invert(50%);
+}
+

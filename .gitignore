@@ -1,0 +1,17 @@
+# Pliki Node.js
+node_modules/
+
+# Foldery buildów / release
+release-builds/
+dist/
+out/
+
+# Pliki logów
+*.log
+
+# Systemowe
+.DS_Store
+Thumbs.db
+
+# Inne
+*.env

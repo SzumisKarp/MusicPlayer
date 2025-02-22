@@ -1,0 +1,21 @@
+{
+  "name": "musicplayer",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-packager . MusicPlayer --platform=win32 --icon=assets/icons/trayicon.ico --out=release-builds --overwrite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^34.2.0",
+    "electron-packager": "^17.1.2"
+  },
+  "dependencies": {
+    "howler": "^2.2.4",
+    "music-metadata": "^11.0.0"
+  }
+}
