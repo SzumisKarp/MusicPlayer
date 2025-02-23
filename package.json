@@ -1,17 +1,26 @@
 {
   "name": "musicplayer",
   "version": "1.0.0",
+  "description": "",
   "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "pack": "electron-packager . MusicPlayer --platform=win32 --icon=assets/icons/trayicon.ico --out=release-builds --overwrite"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-packager . MusicPlayer --platform=win32 --icon=assets/icons/trayicon.ico --out=release-builds --overwrite",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.example.musicplayer",
+    "productName": "MusicPlayer",
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icons/trayicon.ico"
+    }
+  },
   "devDependencies": {
     "electron": "^34.2.0",
+    "electron-builder": "^25.1.8",
     "electron-packager": "^17.1.2"
   },
   "dependencies": {
