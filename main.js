@@ -1,4 +1,5 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron'); // --- NOWE: Tray, Menu ---
+const { app, BrowserWindow, ipcMain, Tray, Menu, dialog } = require('electron');
+ // --- NOWE: Tray, Menu ---
 const path = require('path');
 const fs = require('fs');
 
@@ -90,4 +91,40 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
+});
+
+ipcMain.handle('add-music-files', async (event) => {
+  // Otwórz okno dialogowe, by wybrać jeden lub więcej plików
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    title: 'Wybierz pliki MP3 do dodania',
+    filters: [{ name: 'Audio Files', extensions: ['mp3'] }],
+    properties: ['openFile', 'multiSelections']
+  });
+
+  // Jeśli user anulował wybór - nie rób nic
+  if (canceled || filePaths.length === 0) {
+    return { added: false };
+  }
+
+  // Skopiuj wybrane pliki do folderu "assets/music"
+  const musicFolder = path.join(__dirname, 'assets/music');
+
+  let addedCount = 0;
+  for (const filePath of filePaths) {
+    const baseName = path.basename(filePath); // nazwa pliku.mp3
+    const destPath = path.join(musicFolder, baseName);
+
+    try {
+      // Możesz wybrać fs.copyFileSync lub fs.renameSync.
+      // rename przeniesie plik - tu raczej wolimy kopiować:
+      fs.copyFileSync(filePath, destPath);
+
+      addedCount++;
+    } catch (error) {
+      console.error('Nie udało się skopiować pliku', filePath, error);
+    }
+  }
+
+  // Zwróć do renderera info, czy dodano przynajmniej jeden plik
+  return { added: (addedCount > 0) };
 });

@@ -12,6 +12,9 @@ const volumeLevel = document.getElementById('volume-level');
 const shuffleButton = document.getElementById('shuffle');
 const repeatButton = document.getElementById('repeat');
 
+// NOWY przycisk do dodawania piosenek
+const addSongButton = document.getElementById('add-song');
+
 const body = document.body;
 
 // Lista utworów i indeks aktualnego
@@ -98,6 +101,17 @@ function formatTime(time) {
   const minutes = Math.floor(time / 60);
   const seconds = Math.floor(time % 60);
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+// NOWA FUNKCJA - odświeża listę piosenek po dodaniu
+function reloadSongList() {
+  window.electronAPI.getMusicFiles().then(files => {
+    songs = files.map(file => `assets/music/${file}`);
+    if (songs.length > 0) {
+      currentSongIndex = 0;
+      loadSong(currentSongIndex);
+    }
+  });
 }
 
 /* ==========================================
@@ -332,5 +346,16 @@ repeatButton.addEventListener('click', () => {
     previousSongIndex = null;
     restoreSongIndex = null;
     cameFromPrev = false;
+  }
+});
+
+// NOWY przycisk „Dodaj piosenkę”
+addSongButton.addEventListener('click', async () => {
+  // Wywołujemy funkcję z main.js, która pokaże okno dialogowe
+  const result = await window.electronAPI.addMusicFiles();
+  
+  if (result && result.added) {
+    // Skoro coś dodano, odśwież listę piosenek
+    reloadSongList();
   }
 });
