@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Odtwarzacz Muzyki</h2>
-    <audio id="audio-player" src="assets/music/After Dark.mp3"></audio>
+    <audio id="audio-player" src="assets/music/Alive-Oryginal.mp3"></audio>
     
     <div>
         <button id="prev" title="Poprzednia">
@@ -44,9 +44,11 @@
     <input type="range" id="volume-bar" value="100" min="0" max="100" step="1" aria-label="Regulacja głośności">
     <span id="volume-level">100%</span>
 
+    <div id="song-list"></div>
+
     <button id="add-song" title="Dodaj piosenkę">
         <img src="assets/icons/add.png" alt="Dodaj piosenkę" width="30">
-    </button>      
+    </button>          
 
     <script src="renderer.js"></script>
 </body>

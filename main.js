@@ -80,9 +80,23 @@ app.whenReady().then(() => {
 });
 
 // Handler do pobierania plików .mp3
-ipcMain.handle('get-music-files', async () => {
-  const musicFolder = path.join(__dirname, 'assets/music');
-  return fs.readdirSync(musicFolder).filter((file) => file.endsWith('.mp3'));
+// ipcMain.handle('get-music-files', async () => {
+//   const musicFolder = path.join(__dirname, 'assets/music');
+//   return fs.readdirSync(musicFolder).filter((file) => file.endsWith('.mp3'));
+// });
+
+ipcMain.handle('get-music-files', async () => { 
+  try { 
+    const musicFolder = path.join(__dirname, 'assets/music'); 
+    if (!fs.existsSync(musicFolder)) { 
+      return [];
+    } 
+    return fs.readdirSync(musicFolder).filter((file) => file.endsWith('.mp3')); 
+  } 
+  catch (error) { 
+    console.error("Błąd odczytu plików muzycznych:", error); 
+    return []; 
+  } 
 });
 
 // Jeśli użytkownik faktycznie chce wyjść (np. z paska w tray → Zakończ)
@@ -117,7 +131,14 @@ ipcMain.handle('add-music-files', async (event) => {
     try {
       // Możesz wybrać fs.copyFileSync lub fs.renameSync.
       // rename przeniesie plik - tu raczej wolimy kopiować:
-      fs.copyFileSync(filePath, destPath);
+      // fs.copyFileSync(filePath, destPath);
+      let count = 1;
+      let uniqueDestPath = destPath;
+      while (fs.existsSync(uniqueDestPath)) {
+        uniqueDestPath = path.join(musicFolder, `${baseName.replace('.mp3', '')} (${count}).mp3`);
+        count++;
+      }
+      fs.copyFileSync(filePath, uniqueDestPath);
 
       addedCount++;
     } catch (error) {

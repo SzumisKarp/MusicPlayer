@@ -56,6 +56,51 @@ function initPlayerSettings() {
   }
 }
 
+function changeSong(newSong) {
+  const audioPlayer = document.getElementById('audio-player');
+
+  // Znajdź indeks nowego utworu w liście
+  const newIndex = songs.findIndex(song => song.includes(newSong));
+  if (newIndex !== -1) {
+    currentSongIndex = newIndex;
+  }
+
+  // Zmień źródło i odtwórz nowy utwór
+  audioPlayer.src = `assets/music/${newSong}`;
+  audioPlayer.play();
+
+  // Zmień wyświetlany tytuł utworu
+  const songTitle = document.getElementById('song-title');
+  songTitle.textContent = newSong.replace('.mp3', '');
+}
+
+
+
+async function loadSongs() {
+  // Pobierz listę plików MP3 z folderu assets/music
+  const songList = await window.electronAPI.getMusicFiles();
+  const songContainer = document.getElementById('song-list');
+
+  songContainer.innerHTML = ''; // Czyścimy listę przed załadowaniem nowych utworów
+
+  songList.forEach(song => {
+    const songItem = document.createElement('button');
+    songItem.textContent = song; // Wyświetlanie nazwy pliku MP3
+    songItem.onclick = () => changeSong(song); // Po kliknięciu zmienia utwór
+    songContainer.appendChild(songItem);
+  });
+}
+
+// Uruchom funkcję po załadowaniu strony
+window.addEventListener('DOMContentLoaded', loadSongs);
+
+async function addNewSongs() {
+  const result = await window.electronAPI.addMusicFiles();
+  if (result && result.added) {
+    reloadSongList(); // Odśwież listę po dodaniu nowego pliku
+  }
+}
+
 // Resetuje tablicę `remainingShuffleIndices`
 function resetShuffleArray() {
   remainingShuffleIndices = songs.map((_, idx) => idx);
@@ -107,12 +152,30 @@ function formatTime(time) {
 function reloadSongList() {
   window.electronAPI.getMusicFiles().then(files => {
     songs = files.map(file => `assets/music/${file}`);
-    if (songs.length > 0) {
-      currentSongIndex = 0;
+
+    // Jeśli jest nowy utwór i był pusty, ustaw go jako pierwszy
+    if (songs.length > 0 && currentSongIndex >= songs.length) {
+      currentSongIndex = songs.length - 1;
       loadSong(currentSongIndex);
     }
+
+    // Aktualizacja interfejsu z listą utworów
+    const songContainer = document.getElementById('song-list');
+    songContainer.innerHTML = '';
+
+    songs.forEach((song, index) => {
+      const songItem = document.createElement('button');
+      songItem.textContent = song.split('/').pop().replace('.mp3', ''); // Usuń ścieżkę i rozszerzenie
+      songItem.onclick = () => {
+        currentSongIndex = index;
+        loadSong(currentSongIndex);
+        audioPlayer.play();
+      };
+      songContainer.appendChild(songItem);
+    });
   });
 }
+
 
 /* ==========================================
    GŁÓWNY KOD
