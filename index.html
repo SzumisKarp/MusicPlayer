@@ -1,59 +1,63 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Odtwarzacz Muzyki</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Music Player</title>
+  <!-- Metadane viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Ładowanie zewnętrznego pliku CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Odtwarzacz Muzyki</h2>
-    <audio id="audio-player" src="assets/music/Alive-Oryginal.mp3"></audio>
-    
-    <div>
-        <button id="prev" title="Poprzednia">
-            <img src="assets/icons/previous.png" alt="Przycisk poprzedniej piosenki" width="30">
-        </button>
-        <button id="play" title="Odtwórz">
-            <img src="assets/icons/play.png" alt="Przycisk odtwarzania" width="30">
-        </button>
-        <button id="pause" title="Pauza">
-            <img src="assets/icons/pause.png" alt="Przycisk pauzy" width="30">
-        </button>
-        <button id="next" title="Następna">
-            <img src="assets/icons/next.png" alt="Przycisk następnej piosenki" width="30">
-        </button>
-        <button id="shuffle" title="Losowe odtwarzanie">
-            <img src="assets/icons/shuffle.png" alt="Przycisk odtwarzania losowego" width="30">
-        </button>
-        <button id="repeat" title="Powtarzanie utworu">
-            <img src="assets/icons/replay.png" alt="Przycisk powtarzania utworu" width="30">
-        </button>
+  <div class="main-container">
+    <!-- Lewy panel (sidebar) -->
+    <div class="sidebar">
+      <h2>Biblioteka</h2>
+      <div id="song-list"></div>
     </div>
-    
-    <!-- Wyświetlanie tytułu utworu -->
-    <h3 id="song-title">Ładowanie...</h3>
 
-    <!-- Pasek postępu odtwarzania -->
-    <div class="progress-container">
-        <label for="progress-bar">Postęp utworu:</label>
-        <input type="range" id="progress-bar" value="0" min="0" step="1" aria-label="Postęp odtwarzania">
-        <span id="time-container"><span id="current-time">0:00</span> / <span id="duration">0:00</span></span>
-    </div>    
+    <!-- Prawy panel (content) -->
+    <div class="content">
+      <div class="top-controls">
+        <div id="song-title">[Brak utworu]</div>
+      </div>
 
-    <!-- Pasek głośności -->
-    <div class="volume-container">
+      <div class="audio-controls">
+        <button id="prev" class="player-button">⏮</button>
+        <button id="play" class="player-button">▶</button>
+        <button id="pause" class="player-button">⏸</button>
+        <button id="next" class="player-button">⏭</button>
+        <button id="shuffle" class="player-button">🔀</button>
+        <button id="repeat" class="player-button">🔁</button>
+      </div>
+
+      <div class="progress-section">
+        <span id="current-time">0:00</span>
+        <input 
+          id="progress-bar" 
+          type="range" 
+          min="0" 
+          value="0" 
+          aria-label="Pasek postępu" 
+        />
+        <span id="duration">0:00</span>
+      </div>
+
+      <div class="volume-container">
         <label for="volume-bar">Głośność:</label>
-        <input type="range" id="volume-bar" value="100" min="0" max="100" step="1" aria-label="Regulacja głośności">
-        <span id="volume-level">100%</span>
-    </div>    
+        <input id="volume-bar" type="range" min="0" max="100" value="50" />
+        <span id="volume-level">50%</span>
+      </div>
 
-    <div id="song-list"></div>
+      <div class="bottom-controls">
+        <button id="add-song" class="action-button">Dodaj piosenkę</button>
+      </div>
+    </div>
+  </div>
 
-    <button id="add-song" title="Dodaj piosenkę">
-        <img src="assets/icons/add.png" alt="Dodaj piosenkę" width="30">
-    </button>          
-
-    <script src="renderer.js"></script>
+  <audio id="audio-player"></audio>
+  
+  <script src="renderer.js"></script>
 </body>
 </html>

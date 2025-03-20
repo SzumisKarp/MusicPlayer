@@ -1,0 +1,290 @@
+:root {
+    --bg-color: #1a1c1f;
+    --accent-color: #59bdff;
+    --button-color: #303338;
+    --button-hover-color: #404349;
+    --text-color: #f5f5f5;
+    --border-radius: 6px;
+    --transition-fast: 0.2s ease-in-out;
+    --transition-slow: 0.4s ease-in-out;
+    --success-color: #2ecc71;
+    --error-color: #e74c3c;
+    --gray-color: #999;
+}
+  
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+  
+/* Główna sekcja */
+.main-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+  
+/* Lewy panel – listy, itp. */
+.sidebar {
+    width: 220px;
+    background-color: #212325;
+    border-right: 1px solid #2d2f33;
+    padding: 10px;
+    overflow-y: auto;
+    transition: width var(--transition-fast);
+}
+  
+.sidebar:hover {
+    width: 250px;
+}
+  
+.sidebar h2 {
+    margin-bottom: 10px;
+    color: var(--accent-color);
+    font-weight: normal;
+    font-size: 1.2rem;
+}
+  
+#song-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+  
+#song-list .song-item {
+    background-color: var(--button-color);
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+#song-list .song-item:hover {
+    background-color: var(--button-hover-color);
+}
+  
+.remove-btn {
+    margin-left: 10px;
+    background-color: transparent;
+    border: none;
+    color: var(--error-color);
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.15s;
+}
+.remove-btn:hover {
+    transform: scale(1.2);
+}
+  
+/* Prawy panel – odtwarzacz i sterowanie */
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: auto;
+}
+  
+/* Góra – tytuł utworu */
+.top-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+  
+#song-title {
+    font-size: 1.2rem;
+    flex: 1;
+}
+  
+.audio-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 15px;
+}
+  
+.player-button {
+    background-color: var(--button-color);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color var(--transition-fast), transform 0.2s;
+}
+.player-button:hover {
+    background-color: var(--button-hover-color);
+    transform: scale(1.1);
+}
+  
+.player-button.active {
+    background-color: var(--accent-color);
+    color: #000;
+}
+  
+/* Shuffle & Repeat */
+#shuffle.active,
+#repeat.active {
+    background-color: var(--accent-color);
+    color: #000;
+}
+  
+.progress-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+  
+.progress-section input[type="range"] {
+    width: 70%;
+    cursor: pointer;
+}
+  
+.volume-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+  
+/* Dodawanie piosenki, itp. */
+.bottom-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+  
+.action-button {
+    background-color: var(--button-color);
+    border: 1px solid #444;
+    border-radius: var(--border-radius);
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform 0.2s;
+    color: var(--text-color);
+}
+.action-button:hover {
+    background-color: var(--button-hover-color);
+    transform: scale(1.05);
+}
+  
+/* Animacje "inverted" – kliknięcie */
+.inverted {
+    filter: invert(50%);
+}
+  
+/* Animacja tętniąca */
+.pulsing {
+    animation: pulsing-bg 2s infinite;
+}
+  
+@keyframes pulsing-bg {
+    0% {
+        background-color: var(--bg-color);
+    }
+    50% {
+        background-color: #292b2f;
+    }
+    100% {
+        background-color: var(--bg-color);
+    }
+}
+  
+.dark-mode {
+    transition: background-color var(--transition-slow);
+}
+  
+/* Responsywność – na węższych ekranach */
+@media (max-width: 768px) {
+    .main-container {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid #2d2f33;
+    }
+    .sidebar:hover {
+      width: 100%;
+    }
+    .content {
+      height: auto;
+    }
+}
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+  
+.my-separator {
+    margin: 10px 0;
+    border-color: #333;
+}
+  
+#loading-screen {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: #fff;
+    font-size: 1.2rem;
+}
+  
+#loading-screen.hidden {
+    display: none;
+}
+  
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 6px solid #ccc;
+    border-top-color: #59bdff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+  
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
