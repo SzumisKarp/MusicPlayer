@@ -35,14 +35,18 @@
     <h3 id="song-title">Ładowanie...</h3>
 
     <!-- Pasek postępu odtwarzania -->
-    <label for="progress-bar">Postęp utworu:</label>
-    <input type="range" id="progress-bar" value="0" min="0" step="1" aria-label="Postęp odtwarzania">
-    <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+    <div class="progress-container">
+        <label for="progress-bar">Postęp utworu:</label>
+        <input type="range" id="progress-bar" value="0" min="0" step="1" aria-label="Postęp odtwarzania">
+        <span id="time-container"><span id="current-time">0:00</span> / <span id="duration">0:00</span></span>
+    </div>    
 
     <!-- Pasek głośności -->
-    <label for="volume-bar">Głośność:</label>
-    <input type="range" id="volume-bar" value="100" min="0" max="100" step="1" aria-label="Regulacja głośności">
-    <span id="volume-level">100%</span>
+    <div class="volume-container">
+        <label for="volume-bar">Głośność:</label>
+        <input type="range" id="volume-bar" value="100" min="0" max="100" step="1" aria-label="Regulacja głośności">
+        <span id="volume-level">100%</span>
+    </div>    
 
     <div id="song-list"></div>
 

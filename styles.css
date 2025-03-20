@@ -1,70 +1,146 @@
-/* Stylizacja ciała strony */
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #222;
+/* Resetowanie domyślnych stylów */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #181818;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
     padding: 20px;
 }
 
-/* Stylizacja tytułu utworu */
-h3 {
-    margin-top: 10px;
-    font-size: 18px;
+/* Skaluje całą aplikację */
+.player-container {
+    background: #282828;
+    padding: 2vw;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: min(80vw, 500px);
+    max-width: 600px;
+    min-width: 300px;
+    transition: all 0.3s ease-in-out;
 }
 
-/* Stylizacja przycisków */
-button {
-    margin: 10px;
-    padding: 10px;
-    border: none;
+/* Nagłówek utworu */
+#song-title {
+    font-size: clamp(1.5rem, 2vw, 2.5rem);
+    margin-bottom: 1vw;
+}
+
+/* Przyciskowe menu */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+    flex-wrap: wrap;
+    margin: 1vw 0;
+}
+
+.controls button {
     background: none;
+    border: none;
     cursor: pointer;
+    transition: filter 0.2s ease, transform 0.2s ease;
 }
 
-button img {
-    width: 30px;
-    height: 30px;
+.controls button img {
+    width: clamp(30px, 3vw, 50px);
+    filter: invert(100%);
 }
 
-/* Stylizacja paska postępu */
-#progress-bar, #volume-bar {
-    width: 80%;
-    margin-top: 10px;
+.controls button:hover {
+    transform: scale(1.2);
+    filter: invert(60%);
 }
 
-/* Stylizacja wyświetlania czasu i głośności */
-#current-time, #duration, #volume-level {
-    font-weight: bold;
-    margin: 5px;
-}
-/* Efekt przyciemniania ekranu */
-.dark-mode {
-    background-color: #222;
-    color: white;
-    transition: background-color 0.5s ease, color 0.5s ease;
+/* Pasek postępu utworu */
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1vw 0;
 }
 
-/* Animacja pulsującego tła */
-@keyframes pulse {
-    0% { background-color: #222; }
-    50% { background-color: #333; }
-    100% { background-color: #222; }
+#progress-bar {
+    flex-grow: 1;
+    cursor: pointer;
+    accent-color: #1db954;
 }
 
-.pulsing {
-    animation: pulse 2s infinite;
+/* Przesunięcie czasu na prawo */
+#time-container {
+    text-align: right;
+    flex-grow: 1;
+    padding-left: 0.5vw;
+    font-size: clamp(0.8rem, 1vw, 1.2rem);
 }
 
-.active { filter: invert(50%); }
-
-/* Gdy przycisk jest w stanie aktywnym (np. Play włączony, Shuffle włączone, itp.) */
-.active img {
-  filter: invert(50%);
+/* Pasek głośności */
+.volume-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.5vw;
 }
 
-/* Krótkie mignięcie po kliknięciu */
-.inverted img {
-  filter: invert(50%);
+#volume-bar {
+    flex-grow: 1;
+    cursor: pointer;
+    accent-color: #ff9800;
 }
 
+/* Przesunięcie poziomu głośności na prawo */
+#volume-level {
+    text-align: right;
+    flex-grow: 1;
+    padding-left: 0.5vw;
+    font-size: clamp(0.8rem, 1vw, 1.2rem);
+}
+
+/* Lista piosenek */
+#song-list {
+    margin-top: 1vw;
+    padding: 1vw;
+    background: #333;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 15vw;
+    font-size: clamp(0.8rem, 1vw, 1.2rem);
+}
+
+/* Przycisk dodawania piosenek */
+#add-song {
+    margin-top: 1.5vw;
+    background: none;
+    border: none;
+    padding: 1vw;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#add-song img {
+    width: clamp(40px, 4vw, 60px);
+    filter: invert(100%);
+}
+
+#add-song:hover {
+    transform: scale(1.2);
+}
+
+/* Skalowanie na większych ekranach */
+@media (min-width: 800px) {
+    .player-container {
+        width: min(60vw, 600px);
+    }
+}
