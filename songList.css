@@ -1,0 +1,79 @@
+/* 
+  songList.css 
+  -----------------------------
+  Ten plik nadaje styl i animacje elementom listy piosenek.
+  Pamiętaj, żeby dołączyć go w pliku index.html lub w style.css (np. przez @import).
+*/
+
+/* 
+  Ogólne ustawienia kontenera listy. 
+  Dzięki display: flex i flex-direction: column
+  każdy tytuł będzie jeden pod drugim.
+*/
+#song-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;         /* Odstęp między przyciskami */
+    padding: 8px;      /* Wewnętrzny margines listy */
+    max-height: calc(100vh - 200px); /* przykładowe ograniczenie wysokości */
+    overflow-y: auto;               /* przewijanie, gdy dużo piosenek */
+  }
+  
+  /* Wygląd przycisków (elementów piosenek) */
+  #song-list button {
+    background-color: #2b2e31;      /* ciemniejszy kolor tła */
+    color: #ffffff;                 /* biały kolor czcionki */
+    padding: 8px 12px;              /* wewnętrzne odstępy */
+    font-size: 0.95rem;             /* odrobinę większa czcionka */
+    border: none;                   /* usuwamy domyślną ramkę */
+    border-radius: 4px;             /* zaokrąglenie rogów */
+    text-align: left;               /* tekst wyrównany do lewej */
+    cursor: pointer;                /* kursor "rączka" */
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    /* 
+      transform 0.3s i background-color 0.3s 
+      ułatwiają płynne przejście przy hover.
+    */
+  }
+  
+  /* Efekt „podświetlenia” najechanego utworu + lekki "podskok" */
+  #song-list button:hover {
+    background-color: #414448;      /* jaśniejszy odcień przy najechaniu */
+    transform: translateX(5px) scale(1.02); 
+    /* 
+      przesunięcie lekko w prawo (translateX(5px))
+      i delikatne powiększenie (scale(1.02)).
+    */
+  }
+  
+  /* 
+    Dodatkowa animacja „pulsowania” nazwy utworu 
+    - pojawia się przy najechaniu i trwa w pętli.
+  */
+  #song-list button:hover {
+    animation: pulsuj 2s infinite;
+  }
+  
+  /* Definicja kluczy animacji "pulsuj":
+     zmienia kolor tekstu z białego na lekko niebieski i z powrotem. */
+  @keyframes pulsuj {
+    0% {
+      color: #ffffff;
+    }
+    50% {
+      color: #59bdff;
+    }
+    100% {
+      color: #ffffff;
+    }
+  }
+  
+  /* 
+    Możesz też dodać efekt „cienia” czy inne, np.:
+  */
+  #song-list button:active {
+    box-shadow: 0 0 8px rgba(89, 189, 255, 0.6);
+    transform: translateX(5px) scale(0.98); 
+    /* przy kliknięciu lekko zmniejszamy element */
+  }
+  
